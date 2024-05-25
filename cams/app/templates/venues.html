@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venue Page</title>
+    <style>
+    body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            /* Background image with reduced opacity */
+            background-image: url('{% static 'img/ven.jpg' %}');
+            /* Adjust the opacity as needed */
+            background-color: rgba(255, 255, 255, 0);
+            /* Fallback color */
+            background-blend-mode: overlay;
+            /* Overlay blend mode */
+            background-size: cover;
+            /* Cover the entire viewport */
+            background-position: center;
+            /* Center the background image */
+            background-repeat: no-repeat;
+            /* Do not repeat the background image */
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent background */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .venue-details-container {
+            background-color: #fff;
+            /* Background color of venue details container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            /* Box shadow for floating effect */
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .venue-details {
+            margin: 0;
+        }
+
+        .venue-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+
+        .venue {
+            border: 1px solid #ccc;
+            /* Border around venue */
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 10px;
+            /* Ensure border radius applies correctly */
+        }
+
+        .venue-image {
+            width: 100%;
+            height: 150px;
+            /* Adjust as needed */
+            object-fit: cover;
+        }
+
+        .venue-name {
+            text-align: center;
+            padding: 5px;
+            background-color: #f0f0f0;
+            /* Background color for venue name */
+        }
+
+        .venue-details-images {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .venue-details-images img {
+            width: 100px;
+            /* Adjust image width as needed */
+            height: 100px;
+            /* Adjust image height as needed */
+            margin-right: 10px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding-right: 30px;
+            /* Adjust this value to make space for the icon */
+            background-image: url('{% static 'img/search.png' %}');
+            /* Adjust the path to your search icon */
+            background-repeat: no-repeat;
+            background-position: right center;
+            /* Position the icon to the right */
+            background-size: 20px 20px;
+            /* Adjust the size of the icon */
+        }
+        .vend{
+        color:black;
+        }
+        .helper{
+        color:black;
+        }
+    </style>
+</head>
+<body>
+<a class="helper" href="event">
+ <marquee direction="left" scrollamount="10" loop="infinite">
+     These are our partnering venues.&nbsp;
+    Users may book any venues other than this. Please mention when you are filing the event details.
+  </marquee></a>
+    <br><div class="search-container">
+        <input type="text" class="search-input" id="search-bar" placeholder="Venues in your Place">
+    </div>      
+    <br><br>
+    <div class="venue-container">
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/hall1.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 1')"> Arunodaya Weddings,Mandya</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/hall2.jpg' %}" alt="Venue 2">
+            <div class="venue-name" onclick="showVenueDetails('Venue 2')">RR Wedding Bells,Mysuru</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/hall3.jpg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 3')">Yuvaraj partyhall,Bengaluru</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/hall4.jpg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 4')">Vaibhav Palace,Hasan</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/ven1.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 5')">Galaxy Functionhall,Mysuru</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/ven2.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 6')">White Paradise,Bengaluru</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/a2.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 7')">I J convention hall,Mandya</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/b.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 8')">Miyan Functionhall,Mysuru</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/d.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 9')">Raj Wedding,Hasan</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/e.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 10')">Royal's Weddings,Hasan</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/f.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 11')">Ritika conventionals,Bengaluru</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/g.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 12')">Kumar functionalhall,Mandya</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/i.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 13')">Sakshi partyhall,Mysuru</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/j.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 14')">Vamika paradise,Mysuru</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/k.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 15')">Vasuki convention hall,Bengaluru</div>
+        </div>
+        <div class="venue">
+            <img class="venue-image" src="{% static 'img/la.jpeg' %}" alt="Venue 1">
+            <div class="venue-name" onclick="showVenueDetails('Venue 16')">Spectra convention hall,Mysuru</div>
+        </div>
+        <!-- Add other venues similarly -->
+    </div>
+
+    <!-- Overlay for venue details -->
+    <div class="overlay" id="overlay">
+        <div class="venue-details-container">
+            <div class="venue-details" id="venue-details"></div>
+            <div class="venue-details-images" id="venue-details-images"></div>
+            <button onclick="hideVenueDetails()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const venues = [
+            {
+                name: 'Venue 1',
+                details: 'mysuru-road city entrence malavalli,Mandya',
+                price: 'Price: ₹15,000',
+                website: 'https://maps.app.goo.gl/nXtMDqby2XLAFZXw8',
+                images: ['{% static 'img/h12.jpg' %}', '{% static 'img/w1.jpeg' %}', '{% static 'img/v21.jpg' %}']
+            },
+            {
+                name: 'Venue 2',
+                details: 'Mysuru-bannuru road,Near devegowda circle Mysuru \n ',
+                price: 'Price: ₹12,000',
+                website: 'https://maps.app.goo.gl/2uGYbzxpDgqVer7m9',
+                images: ['{% static 'img/h21.jpeg' %}', '{% static 'img/h22.jpeg' %}','{% static 'img/neob3.jpeg' %}']
+            },
+            {
+                name: 'Venue 3',
+                details: 'Bengaluru',
+                price: 'Price: ₹10,000',
+                website: 'https://maps.app.goo.gl/d1cEMghJud3vi8Lw6',
+                images: ['{% static 'img/h31.jpg' %}', '{% static 'img/sbp1.jpeg' %}','{% static 'img/skb1.jpeg' %}']
+            },
+            {
+                name: 'Venue 4',
+                details: 'Hasan',
+                price: 'Price: ₹13,000',
+                website: 'https://maps.app.goo.gl/2uGYbzxpDgqVer7m9',
+                images: ['{% static 'img/o1.jpg' %}', '{% static 'img/o2.jpeg' %}','{% static 'img/h41.jpeg' %}']
+            },
+            {
+                name: 'Venue 5',
+                details: 'Mysuru-bannur road, near Teresian circle',
+                price: 'Price: ₹12,500',
+                website: 'https://maps.app.goo.gl/Zzdyo3VnoskfZrvd7',
+                images: ['{% static 'img/formal.jpeg' %}', '{% static 'img/skb1.jpeg' %}','{% static 'img/bv1.jpeg' %}','{% static 'img/neob3.jpeg' %}']
+            },
+            {
+                name: 'Venue 6',
+                details: 'Bengaluru',
+                price: 'Price: ₹20,000',
+                website: 'https://maps.app.goo.gl/KyKykfxZRc5CjbGC7',
+                images: ['{% static 'img/o3.jpeg' %}', '{% static 'img/o2.jpeg' %}','{% static 'img/o1.jpg' %}','{% static 'img/d3.jpeg' %}']
+            },
+            {
+                name: 'Venue 7',
+                details: 'near Ksrtc stand,opposite of mahalakshmi petrolbunk, mandya',
+                price: 'Price: ₹18,000',
+                website: 'https://maps.app.goo.gl/2uGYbzxpDgqVer7m9',
+                images: ['{% static 'img/a1.jpeg' %}', '{% static 'img/bv1.jpeg' %}','{% static 'img/hall2.jpg' %}','{% static 'img/k.jpeg' %}']
+            },
+            {
+                name: 'Venue 8',
+                details: 'Mysuru',
+                price: 'Price: ₹15,000',
+                website: 'https://maps.app.goo.gl/6Q1ePQhMcJHM9UY99',
+                images: ['{% static 'img/b2.jpeg' %}', '{% static 'img/b1.jpeg' %}','{% static 'img/for1.jpeg' %}','{% static 'img/h12.jpg' %}']
+            },
+            {
+                name: 'Venue 9',
+                details: 'Hasan',
+                price: 'Price: ₹23,000',
+                website: 'https://maps.app.goo.gl/2uGYbzxpDgqVer7m9',
+                images: ['{% static 'img/d2.jpeg' %}', '{% static 'img/d3.jpeg' %}','{% static 'img/e1.jpg' %}','{% static 'e2.jpeg' %}']
+            },
+            {
+                name: 'Venue 10',
+                details: 'Hasan',
+                price: 'Price: ₹12,000',
+                website: 'https://maps.app.goo.gl/2uGYbzxpDgqVer7m9',
+                images: ['{% static 'img/e1.jpg' %}', '{% static 'img/e2.jpeg' %}','{% static 'img/d2.jpeg' %}','{% static 'img/d.jpeg' %}']
+            },
+            {
+                name: 'Venue 11',
+                details: 'Bengaluru',
+                price: 'Price: ₹13,500',
+                website: 'https://maps.app.goo.gl/3v3M2HHC1VuveMYR7',
+                images: ['{% static 'img/f1.jpeg' %}', '{% static 'img/f2.jpeg' %}','{% static 'img/for1.jpeg' %}','{% static 'img/h41.jpeg' %}']
+            },
+            {
+                name: 'Venue 12',
+                details: 'Mandya',
+                price: 'Price: ₹11,000',
+                website: 'https://maps.app.goo.gl/2uGYbzxpDgqVer7m9',
+                images: ['{% static 'img/neob3.jpeg' %}', '{% static 'img/neob2.jpeg' %}','{% static 'img/neob1.jpeg' %}','{% static 'img/sbp1.jpeg' %}']
+            },
+            {
+                name: 'Venue 13',
+                details: 'Mysuru',
+                price: 'Price: ₹19,000',
+                website: 'https://maps.app.goo.gl/XXctXH5gTuMoXbf26',
+                images: ['{% static 'img/neob2.jpeg' %}', '{% static 'img/formal.jpeg' %}','{% static 'img/g.jpeg' %}','{% static 'img/f2.jpeg' %}']
+            },
+            {
+                name: 'Venue 14',
+                details: 'Mysuru',
+                price: 'Price: ₹17,000',
+                website: 'https://maps.app.goo.gl/3wKEJ4QbPXJuDQNn8',
+                images: ['{% static 'img/k.jpeg' %}', '{% static 'img/ven1.jpeg' %}','{% static 'img/skb1.jpeg' %}','{% static 'img/neob3.jpeg' %}']
+            },
+            {
+                name: 'Venue 15',
+                details: 'Bengaluru',
+                price: 'Price: ₹12,000',
+                website: 'https://maps.app.goo.gl/immVgZkSzhmWP8SEA',
+                images: ['{% static 'img/i.jpeg' %}','{% static 'img/neob3.jpeg' %}','{% static 'img/neob2.jpeg' %}','{% static 'img/ven1.jpeg' %}']
+            },
+            {
+                name: 'Venue 16',
+                details: 'Mysuru',
+                price: 'Price: ₹15,000',
+                website: 'https://maps.app.goo.gl/JUTVyqYjAoCksXVM7',
+                images: ['{% static 'img/neob1.jpeg' %}', '{% static 'img/skb1.jpeg' %}','{% static 'img/ven2.jpeg' %}','{% static 'img/hall2.jpg' %}']
+            },
+            // Add details for other venues
+        ];
+
+        function showVenueDetails(venueName) {
+            const venueDetailsElement = document.getElementById('venue-details');
+            const venueImagesElement = document.getElementById('venue-details-images');
+            const venue = venues.find(venue => venue.name === venueName);
+            venueDetailsElement.innerHTML = `<p><a class="vend" href="${venue.website}" target="_blank">${venue.details}</a></p><p>${venue.price}</p>`;
+            venueImagesElement.innerHTML = venue.images.map(image => `<img src="${image}" alt="Venue Image">`).join('');
+            document.getElementById('overlay').style.display = 'flex';
+        }
+
+        function hideVenueDetails() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        const searchBar = document.getElementById('search-bar');
+        searchBar.addEventListener('input', (event) => {
+            const searchText = event.target.value.toLowerCase();
+            const venueElements = document.getElementsByClassName('venue');
+            for (let i = 0; i < venueElements.length; i++) {
+                const venueName = venueElements[i].getElementsByClassName('venue-name')[0].textContent;
+                if (venueName.toLowerCase().includes(searchText)) {
+                    venueElements[i].style.display = '';
+                } else {
+                    venueElements[i].style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+{% endblock %}
+</html>

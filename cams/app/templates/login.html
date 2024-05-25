@@ -1,0 +1,43 @@
+
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+ body {
+      background-image: url('{% static 'img/signup.jpg' %}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    .p-4{
+
+      background-color:rgba(255,255,255,0.5);
+      }
+      </style>
+<br><br>
+  <div class="container pt-4">
+
+    <div class="col-5 shadow p-0 mx-auto">
+
+      <div class="alert alert-info">
+        <h2>Login here</h2>
+      </div>
+
+          <div class="p-4">
+
+              <form method="post" action="/login/">
+
+                  {% csrf_token %}
+                  {{form.as_p}}
+
+                  <hr>
+                  <button type="submit" class="btn btn-info">Login</button>
+          
+              </form>
+
+          </div>
+
+  </div>
+
+  </div> 
+  {% endblock %}

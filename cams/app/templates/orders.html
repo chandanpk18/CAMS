@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booked Events</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Background image with reduced opacity */
+            background-image: url('{% static 'img/blast.jpeg' %}');
+            /* Adjust the opacity as needed */
+            background-color: rgba(255, 255, 255,0);
+            /* Fallback color */
+            background-blend-mode: overlay;
+            /* Overlay blend mode */
+            background-size: cover;
+            /* Cover the entire viewport */
+            background-position: center;
+            /* Center the background image */
+            background-repeat: no-repeat;
+            /* Do not repeat the background image */
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Booked Events</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Event Type</th>
+                <th>Event Date</th>
+                <th>Place to Host</th>
+                <th>Venue Selection</th>
+                <th>Event Manager</th>
+                <th>Phone Number</th>
+                <th>Event Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in BE %}
+            <tr>
+                <td>{{ event.event_type }}</td>
+                <td>{{ event.date_of_event }}</td>
+                <td>{{ event.place_to_host }}</td>
+                <td>{{ event.venue_selection }}</td>
+                <td>{{ event.event_manager_name }}</td>
+                <td>{{ event.phone_number }}</td>
+                <td>{{ event.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+
+{% endblock %}
+</html>

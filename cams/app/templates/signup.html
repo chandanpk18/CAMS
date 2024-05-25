@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<br>
+<style>
+    body {
+      background-image: url('{% static 'img/sign.jpg' %}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    .p-4{
+
+      background-color:rgba(255,255,255,0.3);
+      }
+      #cao{ background-color:rgba(255,255,255,0.2);}
+  </style>
+<div class="opac">
+<div class="col-5 shadow p-0 mx-auto mt-4">
+
+  <div class="alert alert-primary " id="cao"><h2>Create Account</h2></div>
+
+      <div class="p-4">
+
+          <form method="post" action="/signup/">
+
+              {% csrf_token %}
+              {{form.as_p}}
+
+              <hr>
+              <button type="submit" class="btn btn-primary">Create Account</button>
+
+          </form>
+
+      </div>
+
+</div>
+    </div>
+{% endblock %}

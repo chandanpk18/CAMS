@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration Form</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            /* Background image with reduced opacity */
+            background-image: url('{% static 'img/eve.jpg' %}');
+            /* Adjust the opacity as needed */
+            background-color: rgba(255, 255, 255, 0);
+            /* Fallback color */
+            background-blend-mode: overlay;
+            /* Overlay blend mode */
+            background-size: cover;
+            /* Cover the entire viewport */
+            background-position: center;
+            /* Center the background image */
+            background-repeat: no-repeat;
+            /* Do not repeat the background image */
+        }
+        .container {
+            width: 70%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        form div {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="tel"],
+        select {
+            width: calc(100% - 10px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #c850c0;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ab3d95;
+        }
+
+        small {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<marquee direction="left" scrollamount="10" loop="infinite">
+
+</marquee>
+<div class="container">
+  <h2>Event Registration</h2>
+
+  <form method="post" action="event">
+    {% csrf_token %}
+    <div>
+      <label for="eventName">User Name:</label><br>
+      <input type="text" id="eventName" name="eventName" required><br><br>
+    </div>
+    <div>
+      <label for="eventType">Event Type:</label><br>
+      <input type="text" id="eventType" name="eventType" required><br><br>
+    </div>
+
+    <div>
+      <label for="venueSelection">Venue Selection:</label><br>
+      <select id="venueSelection" name="venueSelection" onchange="checkVenueSelection(this.value)" required>
+        <option value="">Select a Venue</option>
+        {% for venue in venues %}
+        <option value="{{ venue.name }}">{{ venue.name }}</option>
+        {% endfor %}
+        <option value="other">Other (Specify Below)</option>
+      </select><br><br>
+    </div>
+    <div id="venueDetails" style="display: none;">
+      <label for="venueDetailsInput">Venue Details:</label><br>
+      <input type="text" id="venueDetailsInput" name="venueDetailsInput"><br><br>
+    </div>
+    <div>
+      <label for="dateOfEvent">Date of Event:</label><br>
+      <input type="date" id="dateOfEvent" name="dateOfEvent" required><br><br>
+    </div>
+    <div>
+      <label for="eventManagerName">Event Manager Name:</label><br>
+      <select id="eventManagerName" name="eventManagerName" required>
+        <option value="">Select an Event Manager</option>
+        {% for manager in registered_managers %}
+        <option value="{{ manager.name }}">{{ manager.name }}</option>
+        {% endfor %}
+      </select><br><br>
+    </div>
+    <div>
+      <label for="phoneNumber">Phone Number:</label><br>
+      <input type="tel" id="phoneNumber" name="phoneNumber" required pattern="[0-9]{10}"><br><br>
+      <small>Format: 10 digits, e.g., 1234567890</small>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+<script>
+  function checkVenueSelection(value) {
+    var venueDetailsDiv = document.getElementById("venueDetails");
+    var venueDetailsInput = document.getElementById("venueDetailsInput");
+
+    if (value === "other") {
+      venueDetailsDiv.style.display = "block";
+      venueDetailsInput.required = true;
+    } else {
+      venueDetailsDiv.style.display = "none";
+      venueDetailsInput.required = false;
+    }
+  }
+</script>
+
+</body>
+{% endblock %}
+</html>
